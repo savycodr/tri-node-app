@@ -60,6 +60,7 @@ inquirer.prompt([
            
       // fs code goes here
       console.log("We will need to read a file. ");
+      doWhatFileSays();
 
     }
 
@@ -222,8 +223,54 @@ function getTheSongInfo (spot, thisSong)
     }
 
   // console.log(JSON.stringify(data, null, 2));
-});
-
-
+  });
 }
 
+// This function opens a file and reads the contents and 
+// performs what is in the file
+function doWhatFileSays(){
+
+  // Load the NPM Package fs
+  // fs is a core Node package for reading and writing files
+  var fs = require("fs");
+
+  // This block of code will read from the "random.txt" file.
+  // It's important to include the "utf8" parameter or the code will provide stream data (garbage)
+  // The code will store the contents of the reading inside the variable "instructions"
+  fs.readFile("random.txt", "utf8", function(error, instructions) {
+
+    // If the code experiences any errors it will log the error to the console.
+    if (error) {
+      return console.log(error);
+    }
+
+    // We will then print the contents of data
+    console.log(instructions);
+
+    // Then split it by commas (to make it more readable)
+    var dataArr = instructions.split(",");
+
+    // We will then re-display the content as an array for later use.
+    console.log(dataArr);
+
+    switch(dataArr[0])
+    {
+
+      case "concert-this":
+      console.log("calling concert-this");
+      writeConcertInfo(dataArr[1]);
+      break;
+
+      case "spotify-this-song":
+      console.log("calling spotify-this-song");
+      writeSongInfo(dataArr[1]);
+      break;
+
+      case "movie-this":
+      console.log("calling movie-this");
+      writeMovieInfo(dataArr[1]);
+      break;
+    }
+
+  });
+}
