@@ -7,7 +7,7 @@ inquirer.prompt([
     // Here we give the user a list to choose from.
     {
       type: "list",
-      message: "Which action you choose?",
+      message: "Choose what you want me to do:",
       choices: ["concert-this", "spotify-this-song", "movie-this", "do-what-it-says"],
       name: "action"
     }
@@ -70,7 +70,7 @@ inquirer.prompt([
 // This function makes a APEX call to the OMDB API 
 // and reads the response and writes the results to the screen.
 function writeMovieInfo(mvName){
-    console.log("The movie name is " + mvName);
+    // console.log("The movie name is " + mvName);
 
     // If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
     if ((mvName==="") || (mvName===undefined))
@@ -78,7 +78,7 @@ function writeMovieInfo(mvName){
         mvName = "Mr.+Nobody"; 
     }
 
-    console.log("The movie name is " + mvName);
+    // console.log("The movie name is " + mvName);
     //    * Title of the movie.
     //    * Year the movie came out.
     //    * IMDB Rating of the movie.
@@ -91,14 +91,14 @@ function writeMovieInfo(mvName){
     // Then run a request with axios to the OMDB API with the movie specified
     axios.get("http://www.omdbapi.com/?t=" + mvName + "&y=&plot=short&apikey=trilogy").then(
       function(response) {
-      console.log(JSON.stringify(response.data, null, 2));
+      // console.log(JSON.stringify(response.data, null, 2));
       // first some error handling
       if (response.data.Response === "False")
       {
           console.log("Sorry, the movie " + movieResponse.movieName + " was not found, try another one.");
           return;
       }
-      console.log(JSON.stringify(response.data, null, 2));
+      // console.log(JSON.stringify(response.data, null, 2));
       console.log("Title: " + response.data.Title);
       console.log("Year: " + response.data.Year);
       console.log("IMDB Rating: " + response.data.imdbRating);
@@ -136,9 +136,9 @@ function writeConcertInfo(bName){
   axios.get(concertURL).then(function(cResponse) {
     // If the axios was successful...
     // Then log the body from the site!
-    console.log(cResponse.data);
+    // console.log(cResponse.data);
     var concertResults = cResponse.data;
-    console.log("The number of results are " + concertResults.length);
+    // console.log("The number of results are " + concertResults.length);
     for (var i=0; i<concertResults.length; i++){
       console.log("Venue Name: " + concertResults[i].venue.name);
       console.log("Venue Location: " + concertResults[i].venue.city);
@@ -167,8 +167,6 @@ function writeConcertInfo(bName){
     console.log(cError.config);
 
   });
-
-
 }
 
 
@@ -187,7 +185,7 @@ function writeSongInfo(sName)
   // You should then be able to access your keys information like so  
   var spotify = new Spotify(keys.spotify);
 
-  console.log("lets try to search");
+  // console.log("lets try to search");
 
   getTheSongInfo (spotify, sName);
  
@@ -213,7 +211,7 @@ function getTheSongInfo (spot, thisSong)
     }
 
     var l = data.tracks.items.length;
-     console.log("The number of results ar: " + l);
+    //  console.log("The number of results ar: " + l);
     for (var i = 0; i<l; i++){
       console.log("The Artist is " + data.tracks.items[i].album.artists[0].name);
       console.log("The Album is " + data.tracks.items[i].album.name);
